@@ -14,10 +14,44 @@ correct_answer_count = 0
 final_grade = 0.0
 
 def show_leaderboard():
-    pass
+    clear_previous_widgets(root)
+
+    list_of_player_grade_dictionaries = []
+
+    leaderboard = customtkinter.CTkScrollableFrame(root)
+
+    def render_leaderboard():
+        leaderboard.pack(pady=20, padx=60, fill="both", expand=True)
+    
+    root.after(500, render_leaderboard)
+
+    leaderboard_header = customtkinter.CTkLabel(master=root, text="Leaderboard", font=("Roboto", 64))
+    leaderboard_header.pack(side="top")
+
+    with open("leaderboard.txt", "r") as file:
+    # Read lines and convert each line into a dictionary, then append them to our list
+        list_of_player_grade_dictionaries = [eval(line.strip()) for line in file]
+    
+    print(list_of_player_grade_dictionaries)
+    
+    for i, player in enumerate(list_of_player_grade_dictionaries):
+        player_name = customtkinter.CTkLabel(leaderboard, text=player["name"], font=("Roboto", 32))
+        player_name.grid(row=i, column=0, padx=10, pady=5, sticky="w")
+
+        player_grade = customtkinter.CTkLabel(leaderboard, text=player["grade"], font=("Roboto", 32))
+        player_grade.grid(row=i, column=1, padx=10, pady=5, sticky="w")
 
 def handle_grade():
-    print(final_grade)
+    name = name_input.get()
+    player_dictionary = {
+        "name": name,
+        "grade": final_grade
+    }
+
+    leaderboard_file = open("leaderboard.txt", "a+")
+    leaderboard_file.write(str(player_dictionary))
+
+    print(player_dictionary)
 
 def end_game():
     global final_grade
@@ -29,6 +63,7 @@ def end_game():
     submit_grade_button = customtkinter.CTkButton(master=game, font=("Roboto", 32), text="Submit Grade", command=handle_grade)
     submit_grade_button.pack(side="bottom")
 
+    global name_input
     name_input = customtkinter.CTkEntry(master=game, font=("Roboto", 32), placeholder_text="Input your name please.", width=400)
     name_input.pack(side="bottom")
 
@@ -38,6 +73,8 @@ def end_game():
     your_grade_text.pack(side="left")
     your_ending_grade = customtkinter.CTkLabel(master=ending_grade_frame, text=final_grade, font=("Roboto", 48))
     your_ending_grade.pack(side="left")
+    percentage_label = customtkinter.CTkLabel(master=ending_grade_frame, text="%", font=("Roboto", 48))
+    percentage_label.pack(side="left")
 
 def evaluate_answer(answer):
     print(answer)
@@ -61,7 +98,7 @@ def evaluate_answer(answer):
     game.after(1000, clear_previous_widgets, game)
 
     #CHANGE TO 10 AFTER TESTING IS DONE
-    if question_index == 10:
+    if question_index == 1:
         game.after(1000, end_game)
     else:
         game.after(1000, display_question)
