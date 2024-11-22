@@ -1,0 +1,20 @@
+{"question": "Who directed the movie 'Pulp Fiction'?", "answers": "Martin Scorsese,Steven Spielberg,James Cameron,Quentin Tarantino:"}
+{"question": "In 'Titanic,' who played Jack Dawson?", "answers": "Johnny Depp,Brad Pitt,Matthew McConaughey,Leonardo DiCaprio:"}
+{"question": "Which 1994 film features a character named Forrest Gump?", "answers": "The Shawshank Redemption,The Green Mile,The Fugitive,Forrest Gump:"}
+{"question": "Who voiced the character of Genie in 'Aladdin' (1992)?", "answers": "Jim Carrey,Will Smith,Eddie Murphy,Robin Williams:"}
+{"question": "In 'The Lion King,' what is Simba's father's name?", "answers": "Scar,Timba,Rafiki,Mufasa:"}
+{"question": "Which 1999 film featured the phrase 'I see dead people'?", "answers": "The Others,The Ring,The Mist,The Sixth Sense:"}
+{"question": "In 'Jurassic Park,' who played Dr. Alan Grant?", "answers": "Jeff Goldblum,Richard Attenborough,William H. Macy,Sam Neill:"}
+{"question": "Who starred as the titular character in 'The Mask' (1994)?", "answers": "Robin Williams,Jack Nicholson,Bill Murray,Jim Carrey:"}
+{"question": "Which movie features the character of Darth Maul?", "answers": "Star Wars: Episode II - Attack of the Clones,Star Wars: Episode III - Revenge of the Sith,Star Wars: Episode IV - A New Hope,Star Wars: Episode I - The Phantom Menace:"}
+{"question": "Who played the character of Harry Potter in the movie series?", "answers": "Tom Felton,Matthew Lewis,Rupert Grin,Daniel Radcliffe:"}
+{"question": "In 'The Dark Knight,' who played the Joker?", "answers": "Jack Nicholson,Jared Leto,Johnny Depp,Heath Ledger:"}
+{"question": "In 'The Avengers' (2012), who is the leader of S.H.I.E.L.D.?", "answers": "Agent Coulson,Black Widow,Hawkeye,Nick Fury:"}
+{"question": "Who played the character of Ferris Bueller in 'Ferris Bueller's Day Off'?", "answers": "John Hughes,Tom Cruise,Mike Myers,Matthew Broderick:"}
+{"question": "In 'The Terminator,' who plays Sarah Connor?", "answers": "Arnold Schwarzenegger,Jamie Lee Curtis,Cameron Diaz,Linda Hamilton:"}
+{"question": "In 'The Incredibles,' what is Mr. Incredible's real name?", "answers": "Helen Parr,Dash Parr,Jack-Jack Parr,Bob Parr:"}
+{"question": "Who directed the movie 'Inception'?", "answers": "Steven Spielberg,Martin Scorsese,James Cameron,Christopher Nolan:"}
+{"question": "What is the name of the fictional world in 'Avatar'?", "answers": "Naboo,Middle Earth,The Shire,Pandora:"}
+{"question": "In 'Back to the Future,' who plays Marty McFly?", "answers": "Christopher Lloyd,John C. Reilly,Tom Hanks,Michael J. Fox:"}
+{"question": "Who played the character of Tony Stark in the Marvel Cinematic Universe?", "answers": "Chris Hemsworth,Chris Evans,Mark Ruffalo,Robert Downey Jr.:"}
+{"question": "What year was 'Toy Story' first released?", "answers": "1998,1992,1994,1995:"}
