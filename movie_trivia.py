@@ -23,25 +23,35 @@ def show_leaderboard():
     def render_leaderboard():
         leaderboard.pack(pady=20, padx=60, fill="both", expand=True)
     
-    root.after(500, render_leaderboard)
+    root.after(250, render_leaderboard)
 
     leaderboard_header = customtkinter.CTkLabel(master=root, text="Leaderboard", font=("Roboto", 64))
     leaderboard_header.pack(side="top")
+
+    back_to_menu_button = customtkinter.CTkButton(master=root, text="Back to Main Menu", font=("Roboto", 32), command=render_start_menu)
+    back_to_menu_button.pack(side="bottom")
 
     with open("leaderboard.txt", "r") as file:
     # Read lines and convert each line into a dictionary, then append them to our list
         list_of_player_grade_dictionaries = [eval(line.strip()) for line in file]
     
+    list_of_player_grade_dictionaries = sorted(
+        list_of_player_grade_dictionaries,
+        key=lambda player: int(player["grade"]),
+        reverse=True  # Descending order
+    )
+    
     print(list_of_player_grade_dictionaries)
     
     for i, player in enumerate(list_of_player_grade_dictionaries):
-        player_name = customtkinter.CTkLabel(leaderboard, text=player["name"], font=("Roboto", 32))
+        player_name = customtkinter.CTkLabel(leaderboard, text=str(i + 1) + ". " + player["name"] + ":", font=("Roboto", 32))
         player_name.grid(row=i, column=0, padx=10, pady=5, sticky="w")
 
-        player_grade = customtkinter.CTkLabel(leaderboard, text=player["grade"], font=("Roboto", 32))
+        player_grade = customtkinter.CTkLabel(leaderboard, text=str(player["grade"])+ "%", font=("Roboto", 32))
         player_grade.grid(row=i, column=1, padx=10, pady=5, sticky="w")
 
 def handle_grade():
+    print("final grade in handle_grade: " + str(final_grade))
     name = name_input.get()
     player_dictionary = {
         "name": name,
@@ -49,12 +59,18 @@ def handle_grade():
     }
 
     leaderboard_file = open("leaderboard.txt", "a+")
-    leaderboard_file.write(str(player_dictionary))
+    leaderboard_file.write("\n" + str(player_dictionary))
 
     print(player_dictionary)
 
+    root.after(250, show_leaderboard)
+
 def end_game():
+    global question_index
+    global question_count
+    global correct_answer_count
     global final_grade
+
     final_grade = (correct_answer_count / 10) * 100
 
     end_game_header_text = customtkinter.CTkLabel(master=game, text="Game Over!", font=("Roboto", 128))
@@ -75,6 +91,10 @@ def end_game():
     your_ending_grade.pack(side="left")
     percentage_label = customtkinter.CTkLabel(master=ending_grade_frame, text="%", font=("Roboto", 48))
     percentage_label.pack(side="left")
+
+    question_index = 0
+    question_count = 1
+    correct_answer_count = 0
 
 def evaluate_answer(answer):
     print(answer)
@@ -98,12 +118,10 @@ def evaluate_answer(answer):
     game.after(1000, clear_previous_widgets, game)
 
     #CHANGE TO 10 AFTER TESTING IS DONE
-    if question_index == 1:
+    if question_index == 10:
         game.after(1000, end_game)
     else:
         game.after(1000, display_question)
-
-
 
 def get_questions():
     global list_of_questions
@@ -123,11 +141,11 @@ def render_buttons(frame):
 
     for answer in list_of_answers:
         if ":" in answer:
-            button = customtkinter.CTkButton(master=frame, text=answer[:-1], font=("Roboto", 16), command=lambda a=answer: evaluate_answer(a))
+            button = customtkinter.CTkButton(master=frame, text=answer[:-1], font=("Roboto", 32), width=200, command=lambda a=answer: evaluate_answer(a))
             button.pack(pady=20)
             continue
         
-        button = customtkinter.CTkButton(master=frame, text=answer, font=("Roboto", 16), command=lambda a=answer: evaluate_answer(a))
+        button = customtkinter.CTkButton(master=frame, text=answer, font=("Roboto", 32), width=200, command=lambda a=answer: evaluate_answer(a))
         button.pack(pady=20)
 
 def display_question():
@@ -167,6 +185,22 @@ def start_game():
     # Schedule the question to appear after 1 second
     root.after(1000, display_question)
 
+def render_start_menu():
+    clear_previous_widgets(root)
+
+    global start_menu
+    start_menu = customtkinter.CTkFrame(master=root)
+    start_menu.pack(pady=20, padx=60, fill="both", expand=True)
+
+    title_screen_header = customtkinter.CTkLabel(master=start_menu, text="Movie Trivia", font=("Roboto", 128))
+    title_screen_header.pack(pady=12, padx=10)
+
+    play_button = customtkinter.CTkButton(master=start_menu, text="Play!", font=("Roboto", 64), command=start_game, width=600)
+    play_button.pack(pady=12, padx=10)
+
+    leadeboard_button = customtkinter.CTkButton(master=start_menu, text="Leaderboard", font=("Roboto", 64), command=show_leaderboard, width=600)
+    leadeboard_button.pack(pady=12, padx=10)
+
 def clear_previous_widgets(frame):
     # Loop through all the children and destroy them
     for widget in frame.winfo_children():
@@ -177,16 +211,6 @@ def disable_buttons(frame):
         if isinstance(button, customtkinter.CTkButton):
             button.configure(state="disabled")
 
-start_menu = customtkinter.CTkFrame(master=root)
-start_menu.pack(pady=20, padx=60, fill="both", expand=True)
-
-title_screen_header = customtkinter.CTkLabel(master=start_menu, text="Movie Trivia", font=("Roboto", 128))
-title_screen_header.pack(pady=12, padx=10)
-
-play_button = customtkinter.CTkButton(master=start_menu, text="Play!", font=("Roboto", 64), command=start_game, width=600)
-play_button.pack(pady=12, padx=10)
-
-leadeboard_button = customtkinter.CTkButton(master=start_menu, text="Leaderboard", font=("Roboto", 64), command=show_leaderboard, width=600)
-leadeboard_button.pack(pady=12, padx=10)
+render_start_menu()
 
 root.mainloop()
